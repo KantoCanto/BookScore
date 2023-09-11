@@ -7,8 +7,12 @@ if(process.env.NODE_ENV !== "production") {
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 
+//import bodyparser
+const bodyParser = require("body-parser");
+
 //import modules/routes
 const indexRouter = require("./routes/index");
+const authorRouter = require("./routes/authors");
 
 //create app
 const app = express();
@@ -21,6 +25,8 @@ app.set("layout", "layouts/layout");
 //tell app to use layouts and public folder for certain resources
 app.use(expressLayouts);
 app.use(express.static("public"));
+//tell app to use bodyparser urlencoded because we are sending values via url to our server
+app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
 
 //import and setup mongoose
 const mongoose = require("mongoose");
@@ -32,8 +38,9 @@ db.on("error", error => console.error(error));
 db.once("open", () => console.log("Connected to Mongoose"));
 
 
-//tell app to use the setup route
+//tell app to use the setup routes
 app.use("/", indexRouter);
+app.use("/authors", authorRouter);
 
 //tell app to listen on a specific port
 app.listen(process.env.PORT || 3000, () =>{

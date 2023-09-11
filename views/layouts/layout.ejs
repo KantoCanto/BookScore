@@ -8,8 +8,13 @@
 <body>
     Before
     <br>
-    <%- body -%>
+    <%- include("../partials/header.ejs") -%>
+    <%- include("../partials/errorMessage.ejs") -%>
+    <br>
+    <%- body %>
     <br>
     After
+    <br>
+    <%- include("../partials/footer.ejs") -%>
 </body>
 </html>
