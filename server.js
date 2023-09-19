@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
 
 //import and setup mongoose
 const mongoose = require("mongoose");
-mongoose.connect(process.env.DATABASE_URI);
+mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser: true});
 
 //log if we are connected to the database by accessing our connection with db
 const db = mongoose.connection;
