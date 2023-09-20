@@ -10,6 +10,9 @@ const expressLayouts = require("express-ejs-layouts");
 //import bodyparser
 const bodyParser = require("body-parser");
 
+//setup path
+const path = require("path");
+
 //import modules/routes
 const indexRouter = require("./routes/index");
 const authorRouter = require("./routes/authors");
@@ -25,7 +28,7 @@ app.set("layout", "layouts/layout");
 
 //tell app to use layouts and public folder for certain resources
 app.use(expressLayouts);
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 //tell app to use bodyparser urlencoded because we are sending values via url to our server
 app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
 
