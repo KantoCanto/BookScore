@@ -3,6 +3,9 @@ if(process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
+//setup method override
+const methodOverride = require("method-override");
+
 //get express and layputs
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
@@ -31,6 +34,8 @@ app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, "public")));
 //tell app to use bodyparser urlencoded because we are sending values via url to our server
 app.use(bodyParser.urlencoded({limit: "10mb", extended: false}));
+//tell app to use methodOverride by passing in the parameter of _method
+app.use(methodOverride("_method"));
 
 //import and setup mongoose
 const mongoose = require("mongoose");
