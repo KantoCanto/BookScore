@@ -11,7 +11,8 @@ const Book = require("../models/book")
 router.get("/", async (req, res) => {
 
     let searchOptions = {};
-    if (req.query.name != null && req.query.name !== " "){
+
+    if(req.query.name != null && req.query.name !== " "){
         searchOptions.name = new RegExp(req.query.name, "i");
     }
 
@@ -65,7 +66,7 @@ router.get("/:id", async (req, res) => {
             author: author,
             booksByAuthor: books,
         })
-    } catch (err) {
+    } catch(err) {
         console.log(err)
         res.redirect("/");
     }
@@ -89,7 +90,6 @@ router.put("/:id", async (req, res) => {
     let author;
 
     try {
-
         author = await Author.findById(req.params.id);
         author.name = req.body.name;
         await author.save();
@@ -112,15 +112,15 @@ router.delete("/:id", async (req, res) => {
     let author;
 
     try {
-
         author = await Author.findById(req.params.id);
-        await author.remove();
-        res.redirect ("/authors");
-    } catch {
+        await author.deleteOne({_id: req.params.id});
+        res.redirect("/authors");
+    } catch(err) {
         if(author == null){
             res.redirect("/");
         }else{
-            res.redirect(`/authors/${author.id}`);
+            console.error(err)
+            res.redirect(`/authors/${req.params.id}`);
         }    
     }
 })
