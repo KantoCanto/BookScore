@@ -1,0 +1,7 @@
+@import "/stylesheets/shared/fonts.css";
+
+:root {
+  font-family: 'Gotham Rounded';
+  font-size: 20px;
+  color: var(--color-text-light);
+}
